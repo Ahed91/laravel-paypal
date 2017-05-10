@@ -120,7 +120,7 @@ trait PayPalRequest
     {
         return new HttpClient([
             'curl' => [
-                CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_2,
+                CURLOPT_SSLVERSION => 6,
             ],
         ]);
     }
@@ -328,8 +328,8 @@ trait PayPalRequest
         ], $this->options);
 
         $this->post = $this->post->merge($config)
-            ->filter(function ($value, $key) use ($method) {
-                return (($method === 'verifyipn') && ($key === 'METHOD')) ?: $value;
+            ->filter(function ($value) use ($method) {
+                return $value;
             });
     }
 
